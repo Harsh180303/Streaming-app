@@ -1,9 +1,9 @@
-import './App.css';
+import Body from './components/Body';
 
 function App() {
   return (
-    <div className="font-bold">
-      Dekho woh aa gya...
+    <div>
+      <Body/>
     </div>
   );
 }
