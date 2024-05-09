@@ -7,15 +7,14 @@ import {
   updateProfile,
 } from "firebase/auth";
 import { auth } from "../utils/firebase";
-import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice";
+import { BG_IMAGE, USER_ICON } from "../utils/constants";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [isSignInForm, setIsSignInForm] = useState(true);
   const [errorMessage, setErrorMessage] = useState(null);
-  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const name = useRef(null);
@@ -47,7 +46,7 @@ const Login = () => {
 
           updateProfile(user, {
             displayName: nameValue,
-            photoURL: "https://avatars.githubusercontent.com/u/140633695?v=4",
+            photoURL: USER_ICON,
           })
             .then(() => {
               const { uid, email, displayName, photoURL } = auth.currentUser;
@@ -59,7 +58,6 @@ const Login = () => {
                   photoURL: photoURL,
                 })
               );
-              navigate("/browse");
             })
             .catch((error) => {
               setErrorMessage(error.message);
@@ -78,9 +76,6 @@ const Login = () => {
         .then((userCredential) => {
           // Signed in
           const user = userCredential.user;
-
-          console.log(user);
-          navigate("/browse");
         })
         .catch((error) => {
           const errorCode = error.code;
@@ -103,7 +98,7 @@ const Login = () => {
       <div className="absolute">
         <img
           className="w-full h-full object-cover filter brightness-50"
-          src="https://assets.nflxext.com/ffe/siteui/vlv3/4d7bb476-6d8b-4c49-a8c3-7739fddd135c/deecf71d-7a47-4739-9e1a-31b6b0d55be7/IN-en-20240429-popsignuptwoweeks-perspective_alpha_website_medium.jpg"
+          src={BG_IMAGE}
           alt="background"
         />
       </div>
